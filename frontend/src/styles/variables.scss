@@ -1,0 +1,46 @@
+// 主题色
+$primary-color: #409EFF;
+$success-color: #67C23A;
+$warning-color: #E6A23C;
+$danger-color: #F56C6C;
+$info-color: #909399;
+
+// 背景色
+$bg-color: #f5f7fa;
+$bg-color-dark: #1d1e1f;
+$card-bg: #ffffff;
+$card-bg-dark: #2c2c2c;
+
+// 文字颜色
+$text-primary: #303133;
+$text-regular: #606266;
+$text-secondary: #909399;
+$text-placeholder: #c0c4cc;
+
+// 边框颜色
+$border-color: #dcdfe6;
+$border-color-light: #e4e7ed;
+$border-color-lighter: #ebeef5;
+
+// 侧边栏
+$sidebar-width: 220px;
+$sidebar-collapsed-width: 64px;
+$sidebar-bg: #304156;
+$sidebar-text: #bfcbd9;
+$sidebar-active-bg: $primary-color;
+
+// 头部
+$header-height: 60px;
+$header-bg: #ffffff;
+
+// 圆角
+$border-radius-base: 8px;
+$border-radius-small: 4px;
+$border-radius-large: 12px;
+
+// 阴影
+$box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+$box-shadow-light: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+
+// 动画
+$transition-duration: 0.3s;

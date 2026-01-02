@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wo1261931780.accountManage.mapper.PlatformMapper">
+
+    <!-- 分页查询平台 -->
+    <select id="selectPlatformPage" resultType="wo1261931780.accountManage.entity.Platform">
+        SELECT p.*, pt.type_name as platform_type_name
+        FROM sys_platform p
+        LEFT JOIN sys_platform_type pt ON p.platform_type_id = pt.id AND pt.deleted = 0
+        <where>
+            p.deleted = 0
+            <if test="query.platformName != null and query.platformName != ''">
+                AND (p.platform_name LIKE CONCAT('%', #{query.platformName}, '%')
+                OR p.platform_name_en LIKE CONCAT('%', #{query.platformName}, '%'))
+            </if>
+            <if test="query.platformTypeId != null">
+                AND p.platform_type_id = #{query.platformTypeId}
+            </if>
+            <if test="query.country != null and query.country != ''">
+                AND p.country = #{query.country}
+            </if>
+            <if test="query.status != null">
+                AND p.status = #{query.status}
+            </if>
+        </where>
+        ORDER BY p.sort_order, p.id
+    </select>
+
+</mapper>

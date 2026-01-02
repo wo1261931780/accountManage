@@ -1,0 +1,46 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: accountManage-test
+
+  # H2 数据库配置（测试用）
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MySQL
+    username: sa
+    password:
+
+  # H2 控制台
+  h2:
+    console:
+      enabled: true
+
+  # Jackson 配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:test-schema.sql
+
+# MyBatis Plus 配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      id-type: assign_id
+  mapper-locations: classpath*:/mapper/**/*.xml
+
+# 密码加密密钥
+account:
+  security:
+    aes-key: TestAccountManage2024SecretKey12

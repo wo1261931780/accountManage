@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wo1261931780.accountManage.mapper.AccountMapper">
+
+    <!-- 分页查询账号 -->
+    <select id="selectAccountPage" resultType="wo1261931780.accountManage.entity.Account">
+        SELECT a.*, p.platform_name, pt.type_name as platform_type_name
+        FROM sys_account a
+        LEFT JOIN sys_platform p ON a.platform_id = p.id AND p.deleted = 0
+        LEFT JOIN sys_platform_type pt ON p.platform_type_id = pt.id AND pt.deleted = 0
+        <where>
+            a.deleted = 0
+            <if test="query.platformId != null">
+                AND a.platform_id = #{query.platformId}
+            </if>
+            <if test="query.platformTypeId != null">
+                AND p.platform_type_id = #{query.platformTypeId}
+            </if>
+            <if test="query.accountName != null and query.accountName != ''">
+                AND a.account_name LIKE CONCAT('%', #{query.accountName}, '%')
+            </if>
+            <if test="query.accountAlias != null and query.accountAlias != ''">
+                AND a.account_alias LIKE CONCAT('%', #{query.accountAlias}, '%')
+            </if>
+            <if test="query.bindPhone != null and query.bindPhone != ''">
+                AND a.bind_phone LIKE CONCAT('%', #{query.bindPhone}, '%')
+            </if>
+            <if test="query.bindEmail != null and query.bindEmail != ''">
+                AND a.bind_email LIKE CONCAT('%', #{query.bindEmail}, '%')
+            </if>
+            <if test="query.hasSecurityTool != null">
+                AND a.has_security_tool = #{query.hasSecurityTool}
+            </if>
+            <if test="query.accountStatus != null">
+                AND a.account_status = #{query.accountStatus}
+            </if>
+            <if test="query.importanceLevel != null">
+                AND a.importance_level = #{query.importanceLevel}
+            </if>
+            <if test="query.isMainAccount != null">
+                AND a.is_main_account = #{query.isMainAccount}
+            </if>
+            <if test="query.tags != null and query.tags != ''">
+                AND a.tags LIKE CONCAT('%', #{query.tags}, '%')
+            </if>
+            <if test="query.keyword != null and query.keyword != ''">
+                AND (a.account_name LIKE CONCAT('%', #{query.keyword}, '%')
+                OR a.account_alias LIKE CONCAT('%', #{query.keyword}, '%')
+                OR a.remark LIKE CONCAT('%', #{query.keyword}, '%')
+                OR a.uid LIKE CONCAT('%', #{query.keyword}, '%'))
+            </if>
+        </where>
+        ORDER BY a.importance_level DESC, a.create_time DESC
+    </select>
+
+</mapper>
