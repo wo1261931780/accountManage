@@ -1,5 +1,43 @@
 -- 测试数据库 Schema (H2)
 
+-- 系统用户表
+CREATE TABLE IF NOT EXISTS `sys_user` (
+    `id` BIGINT NOT NULL,
+    `username` VARCHAR(50) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `nickname` VARCHAR(100) DEFAULT NULL,
+    `email` VARCHAR(200) DEFAULT NULL,
+    `phone` VARCHAR(50) DEFAULT NULL,
+    `avatar` VARCHAR(500) DEFAULT NULL,
+    `status` TINYINT DEFAULT 1,
+    `login_fail_count` INT DEFAULT 0,
+    `lock_time` TIMESTAMP DEFAULT NULL,
+    `last_login_time` TIMESTAMP DEFAULT NULL,
+    `last_login_ip` VARCHAR(50) DEFAULT NULL,
+    `remark` CLOB,
+    `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `update_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `deleted` TINYINT DEFAULT 0,
+    PRIMARY KEY (`id`),
+    UNIQUE (`username`)
+);
+
+-- 登录日志表
+CREATE TABLE IF NOT EXISTS `sys_login_log` (
+    `id` BIGINT NOT NULL,
+    `user_id` BIGINT DEFAULT NULL,
+    `username` VARCHAR(50) DEFAULT NULL,
+    `login_type` VARCHAR(20) NOT NULL,
+    `login_ip` VARCHAR(50) DEFAULT NULL,
+    `login_location` VARCHAR(100) DEFAULT NULL,
+    `browser` VARCHAR(50) DEFAULT NULL,
+    `os` VARCHAR(50) DEFAULT NULL,
+    `status` TINYINT DEFAULT 1,
+    `message` VARCHAR(255) DEFAULT NULL,
+    `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+);
+
 -- 平台类型字典表
 CREATE TABLE IF NOT EXISTS `sys_platform_type` (
     `id` BIGINT NOT NULL,
@@ -77,3 +115,5 @@ INSERT INTO `sys_platform` (`id`, `platform_code`, `platform_name`, `platform_na
 (101, 'WECHAT', '微信', 'WeChat', 1, 'https://weixin.qq.com', 'CN', '中国', 1, 1, 0),
 (102, 'QQ', 'QQ', 'QQ', 1, 'https://im.qq.com', 'CN', '中国', 2, 1, 0),
 (201, 'TAOBAO', '淘宝', 'Taobao', 2, 'https://www.taobao.com', 'CN', '中国', 1, 1, 0);
+
+-- admin 用户由 AuthServiceImpl.initDefaultAdmin() 在应用启动时自动创建

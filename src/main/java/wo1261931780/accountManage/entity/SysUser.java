@@ -72,6 +72,18 @@ public class SysUser implements Serializable {
     private Integer status;
 
     /**
+     * 登录失败次数
+     */
+    @Schema(description = "登录失败次数", example = "0")
+    private Integer loginFailCount;
+
+    /**
+     * 账号锁定时间
+     */
+    @Schema(description = "账号锁定时间")
+    private LocalDateTime lockTime;
+
+    /**
      * 最后登录时间
      */
     @Schema(description = "最后登录时间")

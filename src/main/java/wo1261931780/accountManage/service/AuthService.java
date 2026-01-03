@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import wo1261931780.accountManage.dto.auth.ChangePasswordDTO;
 import wo1261931780.accountManage.dto.auth.LoginDTO;
 import wo1261931780.accountManage.dto.auth.LoginVO;
+import wo1261931780.accountManage.dto.auth.UpdateProfileDTO;
 import wo1261931780.accountManage.dto.auth.UserInfoVO;
 import wo1261931780.accountManage.entity.SysUser;
 
@@ -52,12 +53,26 @@ public interface AuthService extends IService<SysUser> {
     void changePassword(ChangePasswordDTO changePasswordDTO);
 
     /**
+     * 更新用户资料
+     *
+     * @param updateProfileDTO 更新资料信息
+     */
+    void updateProfile(UpdateProfileDTO updateProfileDTO);
+
+    /**
      * 根据用户名查询用户
      *
      * @param username 用户名
      * @return 用户
      */
     SysUser getByUsername(String username);
+
+    /**
+     * 解锁用户账号
+     *
+     * @param userId 用户ID
+     */
+    void unlockUser(Long userId);
 
     /**
      * 创建默认管理员账号(如果不存在)

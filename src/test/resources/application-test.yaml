@@ -44,3 +44,13 @@ mybatis-plus:
 account:
   security:
     aes-key: TestAccountManage2024SecretKey12
+
+# JWT配置
+jwt:
+  secret: TestAccountManage2024JwtSecretKeyForTestingPurposesOnly
+  access-token-expiration: 7200
+  refresh-token-expiration: 604800
+
+# 限流配置 - 测试环境禁用限流
+rate-limit:
+  enabled: false

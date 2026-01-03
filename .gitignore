@@ -1,16 +1,24 @@
-# Compiled class file
+# ==========================================
+#              AccountManage Backend
+#           Java/Spring Boot .gitignore
+# ==========================================
+
+# ===== Compiled files =====
 *.class
+target/
+build/
 
-# Log file
+# ===== Log files =====
 *.log
+logs/
 
-# BlueJ files
+# ===== BlueJ files =====
 *.ctxt
 
-# Mobile Tools for Java (J2ME)
+# ===== Mobile Tools for Java (J2ME) =====
 .mtj.tmp/
 
-# Package Files #
+# ===== Package Files =====
 *.jar
 *.war
 *.nar
@@ -19,6 +27,72 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# ===== Virtual machine crash logs =====
 hs_err_pid*
 replay_pid*
+
+# ===== IDE files =====
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# VS Code
+.vscode/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ===== Build tool files =====
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+**/build/
+!src/**/build/
+
+# ===== OS files =====
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# ===== Spring Boot =====
+spring-shell.log
+
+# ===== Application specific =====
+# Backup files
+backups/
+
+# Local configuration (contains sensitive data)
+application-local.yaml
+application-local.yml
+application-local.properties
+
+# Generated SQL files
+*.sql.bak

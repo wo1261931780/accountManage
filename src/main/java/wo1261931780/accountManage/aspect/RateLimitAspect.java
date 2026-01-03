@@ -1,12 +1,12 @@
 package wo1261931780.accountManage.aspect;
 
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -18,7 +18,6 @@ import wo1261931780.accountManage.security.UserContext;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -31,8 +30,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 @Aspect
 @Component
-@RequiredArgsConstructor
 public class RateLimitAspect {
+
+    /**
+     * 是否启用限流，默认启用
+     */
+    @Value("${rate-limit.enabled:true}")
+    private boolean enabled;
 
     /**
      * 限流记录存储
@@ -43,6 +47,11 @@ public class RateLimitAspect {
 
     @Around("@annotation(rateLimit)")
     public Object around(ProceedingJoinPoint point, RateLimit rateLimit) throws Throwable {
+        // 如果限流被禁用，直接放行
+        if (!enabled) {
+            return point.proceed();
+        }
+
         String limitKey = buildLimitKey(point, rateLimit);
 
         // 检查是否超过限流

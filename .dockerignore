@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+*.iml
+.vscode
+
+# Build outputs
+target/
+*.class
+*.jar
+!target/*.jar
+
+# Logs
+*.log
+logs/
+
+# Test files
+src/test/
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -51,29 +51,45 @@ knife4j:
   setting:
     language: zh_cn
 
-# 密码加密密钥 (生产环境请修改并妥善保管)
+# 密码加密密钥 (生产环境通过环境变量配置)
 account:
   security:
-    aes-key: AccountManage2024SecretKey123456
+    aes-key: ${AES_KEY:AccountManage2024SecretKey123456}
 
 # JWT 配置
 jwt:
-  # JWT签名密钥 (Base64编码，生产环境请更换)
-  secret: YWNjb3VudE1hbmFnZVNlY3JldEtleUZvckpXVFRva2VuR2VuZXJhdGlvbjIwMjY=
+  # JWT签名密钥 (Base64编码，生产环境通过环境变量配置)
+  secret: ${JWT_SECRET:YWNjb3VudE1hbmFnZVNlY3JldEtleUZvckpXVFRva2VuR2VuZXJhdGlvbjIwMjY=}
   # 访问令牌过期时间 (毫秒) - 默认2小时
-  access-token-expiration: 7200000
+  access-token-expiration: ${JWT_ACCESS_EXPIRATION:7200000}
   # 刷新令牌过期时间 (毫秒) - 默认7天
-  refresh-token-expiration: 604800000
+  refresh-token-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
   # 令牌签发者
-  issuer: AccountManage
+  issuer: ${JWT_ISSUER:AccountManage}
 
 # 备份配置
 backup:
   # 备份文件存储路径
   path: ./backups
 
+# 安全配置
+security:
+  ip-blacklist:
+    # 是否启用IP黑名单
+    enabled: ${IP_BLACKLIST_ENABLED:true}
+    # 登录失败多少次后自动封禁
+    fail-threshold: ${IP_BLACKLIST_FAIL_THRESHOLD:10}
+    # 统计失败次数的时间窗口（分钟）
+    fail-window-minutes: ${IP_BLACKLIST_FAIL_WINDOW:30}
+    # 自动封禁时长（分钟）
+    auto-block-minutes: ${IP_BLACKLIST_AUTO_BLOCK:60}
+
 # 日志配置
 logging:
   level:
     wo1261931780.accountManage: DEBUG
     org.springframework.web: INFO
+
+# API 版本
+api:
+  version: 1.8.0

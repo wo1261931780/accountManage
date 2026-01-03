@@ -1,0 +1,53 @@
+# ==========================================
+# 生产环境配置
+# ==========================================
+# 使用方式: java -jar xxx.jar --spring.profiles.active=prod
+#
+# 必须配置的环境变量:
+# - DB_URL: 数据库连接URL
+# - DB_USERNAME: 数据库用户名
+# - DB_PASSWORD: 数据库密码
+# - AES_KEY: AES加密密钥 (32位字符串)
+# - JWT_SECRET: JWT签名密钥 (Base64编码)
+# ==========================================
+
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  # 数据源配置 (必须通过环境变量配置)
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+
+# MyBatis Plus 配置 (关闭SQL日志)
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+# Knife4j 配置 (生产环境禁用)
+knife4j:
+  enable: false
+  production: true
+
+# 日志配置 (生产环境使用INFO级别)
+logging:
+  level:
+    wo1261931780.accountManage: INFO
+    org.springframework.web: WARN
+  file:
+    name: ${LOG_PATH:./logs}/accountManage.log
+  logback:
+    rolling-policy:
+      max-file-size: 100MB
+      max-history: 30
+
+# 备份配置 (生产环境路径)
+backup:
+  path: ${BACKUP_PATH:/data/backups}

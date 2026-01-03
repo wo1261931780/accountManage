@@ -12,6 +12,7 @@ import wo1261931780.accountManage.common.result.Result;
 import wo1261931780.accountManage.dto.auth.ChangePasswordDTO;
 import wo1261931780.accountManage.dto.auth.LoginDTO;
 import wo1261931780.accountManage.dto.auth.LoginVO;
+import wo1261931780.accountManage.dto.auth.UpdateProfileDTO;
 import wo1261931780.accountManage.dto.auth.UserInfoVO;
 import wo1261931780.accountManage.service.AuthService;
 import wo1261931780.accountManage.util.WebUtils;
@@ -83,6 +84,17 @@ public class AuthController {
     @OperationLog(module = "认证管理", type = OperationLog.OperationType.UPDATE, description = "修改密码", saveParams = false)
     public Result<Void> changePassword(@Valid @RequestBody ChangePasswordDTO changePasswordDTO) {
         authService.changePassword(changePasswordDTO);
+        return Result.success();
+    }
+
+    /**
+     * 更新用户资料
+     */
+    @Operation(summary = "更新用户资料", description = "更新当前用户的资料信息")
+    @PutMapping("/profile")
+    @OperationLog(module = "认证管理", type = OperationLog.OperationType.UPDATE, description = "更新用户资料")
+    public Result<Void> updateProfile(@Valid @RequestBody UpdateProfileDTO updateProfileDTO) {
+        authService.updateProfile(updateProfileDTO);
         return Result.success();
     }
 }
